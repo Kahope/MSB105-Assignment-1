@@ -8,6 +8,10 @@ classoption: twoside
 fontsize: 12pt
 linestretch: 1.5
 output:
+  word_document:
+    df_print: paged
+    toc: true
+    toc_depth: 3
   html_document:
     df_print: paged
     toc: true
@@ -18,10 +22,6 @@ output:
     toc: true
     toc_depth: 3
     fig_height: 4
-  word_document:
-    df_print: paged
-    toc: true
-    toc_depth: 3
 bibliography: reproducibility.bib
 lang: nb-NO
 csl: apa-no-ampersand.csl
@@ -154,13 +154,19 @@ ggplot(data = mtcars,
                      y = 1609.347 / (2 * qsec^2)
                      )
        ) +
-  geom_point(data = hp_acc, mapping = aes(x = hp, y = acc), colour = "grey80") +
-  facet_wrap(~ cut_number(wt, n = 3, labels = c("Light", "Medium", "Heavy"))) +
-  geom_point(aes(colour = cut_number(wt, n = 3, labels = c("Light", "Medium", "Heavy"))),
+  geom_point(data = hp_acc,
+             mapping = aes(x = hp, y = acc), 
+             colour = "grey80") +
+  facet_wrap(~ cut_number(wt, n = 3, 
+                          labels = c("Light", "Medium", "Heavy"))) +
+  geom_point(aes(colour = cut_number(wt,
+                                     n = 3, labels = c("Light", "Medium", "Heavy"))),
     show.legend = FALSE
   ) +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(y = "Mean acceleration (m/s^2)", colour = "Weight")
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(y = "Mean acceleration (m/s^2)",
+       colour = "Weight")
 ```
 
 ```{r mtcars-forelesning-fargerik, echo=FALSE}
@@ -182,14 +188,13 @@ ggplot(data = mtcars, mapping = aes(x = hp, y = 1609.347 / (2 * qsec^2))) +
 I dette kapittelet har vi vist eksempler på "forskningsresultater", der vi både viser og unnlater å vise hvordan vi kom frem til "sluttproduktet".
 Det skal være forholdsvis enkelt å reprodusere våre resultater.
 **Men** det forutsetter at andre brukere har installert akkurat nøyaktig de samme pakkene i *RStudio*, som vi har benyttet oss av. 
-En løsning på denne utfordringen kan være å legge ved følgende "chunk". 
+En løsning på denne utfordringen kan være å legge ved følgende kode i en "chunk" eller skjermbilde. 
 Den vil produsere en oversikt over nødvendig programvare, for å kunne reprodusere nøyaktig samme resultater som her.
 
-```{r sessionInfo, echo=TRUE}
-sessionInfo()
-```
+`sessionInfo()`
 
-> *Det passer nok best å kjøre en slik kode helt til slutt i dokumentet, da det gjerne tar en del plass og kan virke forstyrrende inne i en artikkel (som her).*
+> *Det passer nok best å kjøre en slik kode i console-vinduet og legge ved en screenshot av infoen i appendikset, da det gjerne tar en del plass og kan virke forstyrrende inne i en artikkel (i f.eks. .pdf eller .docx filer).*
+> ***I tillegg til at andre som åpner .Rmd-filen vil kun få opp deres egen sessionInfo***
 
 Som vi var inne på i forrige kapittel, kan en god løsning være å samle alle kodene i et eget *kode-appendiks* i slutten av dokumentet. 
 Dette er noe vi har valgt å gjøre for å vise frem muligheten. 
@@ -212,7 +217,7 @@ Den viktigste komponenten vil uansett alltid være at forskeren ønsker å dele 
 
 ![Merge conflict](merge-conflict.png)
 ![Git historie](git-history.png)
-
+![SessionInfo](sessioninfo.png)
 
 \newpage
 ## Koder
